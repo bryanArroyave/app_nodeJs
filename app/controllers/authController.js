@@ -20,7 +20,8 @@ module.exports = function login(req, res) {
 
                         let payload = {
                             email: user.email,
-                            name: user.name
+                            name: user.name,
+                            role: user.role
                         };
 
                         jwt.sign(payload, config.SECRET_TOKEN, function (err, token) {
