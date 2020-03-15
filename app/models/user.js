@@ -12,6 +12,12 @@ const userSchema = new mongooose.Schema({
         required: true,
         unique: true
     },
+    role: {
+        type: String,
+        required: true,
+        default: "regular",
+        enum: ["admin", "regular"]
+    },
     password: {
         type: String,
         required: true,
@@ -47,7 +53,7 @@ userSchema.pre('save', function (next) {
 });
 
 const user = mongooose.model("user", userSchema);
-console.log(user, "sasd");
+
 
 
 module.exports = user;

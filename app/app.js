@@ -4,9 +4,14 @@ const productRoutes = require("./routes/productRoute")
 const userRoutes = require("./routes/userRoute")
 const authRoutes = require("./routes/authRoutes")
 const app = express()
+const authtokenMiddleware = require("./middlerwares/authtokenMiddleware")
+
+app.use(authtokenMiddleware)
 
 app.use(bodyParse.json())
 app.use(bodyParse.urlencoded({ extended: false })) // no viene  de un formulario directo
+
+
 app.use("/product", productRoutes);
 app.use("/user", userRoutes);
 app.use("/auth", authRoutes);
