@@ -1,5 +1,5 @@
 const mongooose = require("mongoose");
-
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongooose.Schema({
     name: {
@@ -27,7 +27,27 @@ const userSchema = new mongooose.Schema({
     }
 
 });
+//encrypt password
+userSchema.pre('save', function (next) {
+
+    bcrypt.genSalt(10)
+        .then(salts => {
+
+            bcrypt.hash(this.password, salts)
+                .then(hash => {
+
+
+                    this.password = hash;
+                    next();
+                }).catch(err => next(err))
+        }).catch(err => {
+            console.log("errrasd");
+            next(err)
+        });
+});
 
 const user = mongooose.model("user", userSchema);
+console.log(user, "sasd");
+
 
 module.exports = user;
